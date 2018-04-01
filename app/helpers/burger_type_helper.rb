@@ -1,0 +1,2 @@
+module BurgerTypeHelper
+end

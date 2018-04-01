@@ -1,0 +1,9 @@
+rails g model contacts name:string phone:string active:boolean
+rails g model welcome_data messege:string active:boolean
+rails g model burger_fills fill_detail:string active:boolean
+rails g model burger_types type:string active:boolean
+rails g model email_contacts email:string active:boolean
+rails g model menu_messege messege:string start_messege:boolean last_messege:boolean
+rails g model potatos price:integer weight:string units:integer
+rails g model burger_type_id:burger_type burger_fill_id:burger_fill
+rails g model images photo:attachment

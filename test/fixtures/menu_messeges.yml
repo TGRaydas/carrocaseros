@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  messege: MyString
+  start_messege: false
+  last_messege: false
+
+two:
+  messege: MyString
+  start_messege: false
+  last_messege: false

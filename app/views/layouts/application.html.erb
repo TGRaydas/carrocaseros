@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carrocaseros</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <nav class="navbar navbar-inverse">
+      <div class="navbar-header">
+        <% if @logo %>
+        <img src="<%= @logo.avatar.url(:thumb) %>" height="40">
+        <% end %>
+      </div>
+      <div class="center">
+        <ul class="nav navbar-nav">
+          <% if params[:controller] == "home" %>
+            <li class="active"><a href="/home" class="navbar-brand">Inicio</a></li>
+          <% else %>
+            <li class=""><a href="/home" class="navbar-brand">Inicio</a></li>
+          <% end %>
+          <% if params[:controller] == "menu" %>
+            <li class="active"><a href="/menu" class="navbar-brand">Menú</a></li>
+          <% else %>
+            <li><a href="/menu" class="navbar-brand">Menú</a></li>
+          <% end %>
+          <% if params[:controller] == "galery" %>
+            <li class="active"><a href="/galery" class="navbar-brand">Galería</a></li>
+          <% else %>
+            <li><a href="/galery" class="navbar-brand">Galería</a></li>
+          <% end %>
+          <% if params[:controller] == "contact" %>
+            <li class="active"><a href="/contact" class="navbar-brand">Contacto</a></li>
+          <% else %>
+            <li class=""><a href="/contact" class="navbar-brand">Contacto</a></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="nav navbar-right">
+        <ul class="nav navbar-nav">
+          <li class="">
+            <a class="btn-lg" data-toggle="tooltip" title="Shopping">
+              <i class="glyphicon glyphicon-shopping-cart"></i>
+            </a>
+          </li>
+          <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        </ul>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+  <footer class="navbar-default navbar-fixed-bottom">
+    <div style="background-color: black" class="container-fluid">
+      <span style="text-align: center">Contactos</span>
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,2 @@
+class MenuMessege < ApplicationRecord
+end

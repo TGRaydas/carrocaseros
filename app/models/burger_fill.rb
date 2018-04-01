@@ -1,0 +1,2 @@
+class BurgerFill < ApplicationRecord
+end

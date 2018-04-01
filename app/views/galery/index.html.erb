@@ -1,0 +1,77 @@
+
+<body style="background: #2E2F30">
+  <div class="galery_center" style="background: black">
+    <div class="text-center">
+      <button id="back_button_gallery"><i class="glyphicon glyphicon-chevron-left"></i></button>
+    <% @galery_images.each do |image| %>
+      <% if @galery_images_counter == 0 %>
+      <img id="image_<%= @galery_images_counter %>" src="<%= image.avatar.url(:galery) %>">
+      <% @galery_images_counter += 1 %>
+      <% else %>
+      <img id="image_<%= @galery_images_counter %>" hidden src="<%= image.avatar.url(:galery) %>">
+      <% @galery_images_counter += 1 %>
+      <% end %>
+    <% end %>
+      <span id="actual_image" hidden>0</span>
+      <span id="total_images" hidden><%= @galery_images_counter %></span>
+      <button id="next_button_gallery"><i class="glyphicon glyphicon-chevron-right"></i></button>
+    </div>
+  </div>
+</body>
+
+<script>
+function Next_Button() {
+    $("#next_button_gallery").click(function () {
+        var actual_image = parseInt($("#actual_image").text());
+        var total_images = parseInt($("#total_images").text());
+        var image = "#image_" + actual_image.toString();
+        var next_image = "#image_";
+        if (actual_image < total_images){
+            if (actual_image == total_images - 1){
+                next_image += "0";
+                $("#actual_image").text("0");
+            }
+            else {
+                next_image += (actual_image + 1).toString();
+                $("#actual_image").text((actual_image + 1).toString());
+            }
+            $(image).hide();
+            $(next_image).show();
+
+
+        }
+    });
+}
+function Back_Button() {
+    $("#back_button_gallery").click(function () {
+        var actual_image = parseInt($("#actual_image").text());
+        var total_images = parseInt($("#total_images").text());
+        var image = "#image_" + actual_image.toString();
+        var next_image = "#image_";
+        if (actual_image == 0){
+            next_image += (total_images - 1).toString();
+            $("#actual_image").text((total_images - 1).toString());
+        }
+        else {
+            next_image += (actual_image - 1).toString();
+            $("#actual_image").text((actual_image - 1));
+        }
+        $(image).hide();
+        $(next_image).show();
+
+    });
+}
+function isMobile(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        $("[id^=image_]").each(function () {
+           $(this).height(500);
+           $(this).width(400);
+        });
+    }
+}
+$(document).ready(function () {
+  Next_Button();
+  Back_Button();
+  isMobile();
+});
+</script>

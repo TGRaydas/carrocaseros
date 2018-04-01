@@ -1,0 +1,342 @@
+<% if @background_image %>
+<body class="img_background" background="<%= @background_image.avatar.url %>" >
+<% else %>
+<body>
+<% end %>
+<span id="start_buttons" class="col-md-offset-4">
+<button id="home_edit" class="btn"> Editar Home</button>
+<button id="menu_edit" class="btn"> Editar Menu</button>
+<button id="galery_edit" class="btn"> Subir Fotos</button>
+<button id="contact_edit"class="btn"> Editar Contactos</button>
+</span>
+
+<span hidden id="home_edit_buttons" class="col-md-offset-4">
+  <button id="edit_messege" class="btn" data-toggle="modal" data-target="#exampleModal">Editar Mensaje</button>
+  <button id="back" class="btn">Volver</button>
+</span>
+<p></p>
+<!-- Table Fotos -->
+<div id="photo-manage-table" hidden class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3" >
+<p></p>
+<%= form_for @add_photo, url: '/photos', html: { multipart: true } do |form| %>
+    <%= form.file_field :avatar  %>
+  <p></p>
+    <%= form.submit "Agregar Foto", class: "btn btn-success" %>
+<% end %>
+<p></p><p></p>
+<table id="photos_table" class="table table-bordered">
+  <tr>
+    <th> Archivo </th>
+    <th> Logo </th>
+    <th> Galería </th>
+    <th> Fondo de Pantalla </th>
+    <th> Guardar </th>
+    <th> Eliminar </th>
+  </tr>
+  <% @photos.each do |photo| %>
+  <tr>
+    <%= form_for photo do |pic| %>
+      <td><img src="<%= photo.avatar.url(:thumb) %>"></td>
+      <td><%= pic.check_box :logo %> </td>
+      <td><%= pic.check_box :galery %></td>
+      <td><%= pic.check_box :background %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-primary btn-sm") do %>
+          <i class="glyphicon glyphicon-ok"></i>
+        <% end %>
+      </td>
+    <% end %>
+    <%= form_for photo, method: "delete" do |pic| %>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
+          <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+<p></p>
+<button id="hide_table" class="btn btn-warning"> Volver </button>
+<p></p>
+</div>
+
+<!-- Contacts -->
+<div id="contacts-manage-table" hidden class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3">
+  <div class="row">
+    <ul class="nav nav-tabs">
+    <li class="active"><a id="contact_manage_in_table">Contactos</a></li>
+    <li><a id="email_manage_in_table">Email CarroCaseros</a></li>
+    <li><a id="social-media-manage">Redes Sociales</a></li>
+    </ul>
+  </div>
+  <table id="email-manage-table" class="table table-bordered" hidden>
+    <tr>
+      <th>Email</th>
+      <th>Mostrar</th>
+      <th>Actualizar</th>
+    </tr>
+    <% @emails.each do |email| %>
+    <tr>
+      <%= form_for email do |email| %>
+      <td><%= email.text_field :email, class: "form-control" %></td>
+      <td><%= email.check_box :active %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok"></i>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <%= form_for @new_email, url: "/email_contact" do |new_email| %>
+    <tr>
+      <td><%= new_email.text_field :email, class: "form-control" %></td>
+      <td><%= new_email.check_box :active %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
+      </td>
+    </tr>
+      <% end %>
+  </table>
+  <table id="the-contacts-manage-table" class="table table-bordered">
+    <tr>
+      <th>Nombre</th>
+      <th>Telefono</th>
+      <th>Mostrar</th>
+      <th>Actualizar</th>
+    </tr>
+    <% @contacts.each do |contact| %>
+    <tr>
+      <%= form_for contact do |contact| %>
+      <td><%= contact.text_field :name, class: "form-control" %></td>
+      <td><%= contact.text_field :phone, class: "form-control" %></td>
+      <td><%= contact.check_box :active %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok"></i>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <tr>
+      <%= form_for @new_contact, url: "/contact" do |c| %>
+      <td><%= c.text_field :name, class: "form-control"%></td>
+      <td><%= c.text_field :phone, class: "form-control" %></td>
+      <td><%= c.check_box :active %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+  </table>
+  <table hidden id="social-media-manage-table" class="table table-bordered">
+    <tr>
+      <th>Red Social</th>
+      <th>Link</th>
+      <th>Actualizar</th>
+    </tr>
+    <tr>
+      <td>Facebook</td>
+      <%= form_for @facebook, url: "/social_medias" do |f| %>
+      <td><%= f.text_field :link, class: "form-control" %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok"></i>
+        <% end %>
+      </td>
+        <div hidden >
+          <%= f.check_box :facebook %>
+          <%= f.check_box :instagram %>
+          <%= f.check_box :twitter %>
+        </div>
+      </tr>
+      <% end %>
+      <tr>
+      <%= form_for @instagram, url: "/social_medias" do |f| %>
+        <td>Instagram</td>
+        <td><%= f.text_field :link, class: "form-control" %></td>
+
+        <td>
+          <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+            <i class="glyphicon glyphicon-ok"></i>
+          <% end %>
+        </td>
+          <div hidden >
+            <%= f.check_box :facebook %>
+            <%= f.check_box :instagram %>
+            <%= f.check_box :twitter %>
+          </div>
+      <% end %>
+    </tr>
+  </table>
+  <p></p>
+  <button id="hide_table_contacts" class="btn btn-warning"> Volver </button>
+  <p></p>
+</div>
+
+<!-- Menu -->
+<div id="menu-manage-table" class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3">
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li class="active"><a id="burgers-in-table">Hamburgesas</a></li>
+      <li><a id="bread-fill-in-table">Pan y Relleno</a></li>
+      <li><a id="potato-in-table">Papas</a></li>
+    </ul>
+  </div>
+  <!-- Burger Types Table -->
+  <table id="menu-table-burger" class="table table-bordered">
+    <tr>
+      <th>Tipo de Hamburgesa</th>
+      <th>Agregar</th>
+      <th>Eliminar</th>
+    </tr>
+  <% @burger_types.each do |bt| %>
+    <tr>
+    <%= form_for bt do |bt| %>
+      <td>
+        <%= bt.text_field :name, class: "form-control" %>
+      </td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-primary btn-sm") do %>
+          <i class="glyphicon glyphicon-ok"></i>
+        <% end %>
+      </td>
+    <% end %>
+    <%= form_for bt, method: "delete" do |bt| %>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
+          <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        <% end %>
+      </td>
+    <% end %>
+    </tr>
+  <% end %>
+  <%= form_for @new_burger_type, url: "/burger_type" do |nbt| %>
+    <tr>
+      <td><%= nbt.text_field :name, class: "form-control" %></td>
+      <td>
+        <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        <% end %>
+      </td>
+      <td></td>
+    </tr>
+
+  <% end %>
+  </table>
+  <!-- Bread and Fills Table -->
+  <table id="menu-table-fills" class="table table-bordered">
+    <tr>
+      <th>Detalle</th>
+      <th></th>
+    </tr>
+  </table>
+
+</div>
+
+<!-- Modal -->
+<%= form_for @messege do |f| %>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Mensaje de Inicio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="comment">Mensaje:</label>
+              <%= f.text_area :messege, class: "form-control"%>
+              <%= f.check_box :active %>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+</body>
+<script>
+function HideButtons() {
+    $("#home_edit").click(function () {
+        $("#start_buttons").hide();
+        $("#home_edit_buttons").show();
+    });
+    $("#menu_edit").click(function () {
+
+    });
+    $("#galery_edit").click(function () {
+        $("#start_buttons").hide();
+        $("#photo-manage-table").show();
+    });
+    $("#contact_edit").click(function () {
+        $("#start_buttons").hide();
+        $("#contacts-manage-table").show();
+    });
+}
+function Back() {
+    $("#back").click(function () {
+        $("#home_edit_buttons").hide();
+        $("#start_buttons").show();
+        $("#photo-manage-table").hide();
+    });
+
+}
+function hideTable() {
+    $("#hide_table").click(function () {
+       $("#photo-manage-table").hide();
+       $("#start_buttons").show();
+    });
+    $("#hide_table_contacts").click(function () {
+        $("#contacts-manage-table").hide();
+        $("#start_buttons").show();
+    });
+}
+
+function TableManageContactsControl() {
+    $("#email_manage_in_table").click(function () {
+        $("#the-contacts-manage-table").hide();
+        $("#social-media-manage-table").hide();
+        $("#social-media-manage").closest("li").attr('class','' );
+        $("#contact_manage_in_table").closest("li").attr('class','' );
+        $("#email_manage_in_table").closest("li").attr('class','active' );
+        $("#email-manage-table").show();
+    });
+    $("#contact_manage_in_table").click(function () {
+        $("#the-contacts-manage-table").show();
+        $("#email-manage-table").hide();
+        $("#social-media-manage-table").hide();
+        $("#social-media-manage").closest("li").attr('class','' );
+        $("#contact_manage_in_table").closest("li").attr("class","active");
+        $("#email_manage_in_table").closest("li").attr('class','' );
+    });
+    $("#social-media-manage").click(function () {
+        $("#the-contacts-manage-table").hide();
+        $("#email-manage-table").hide();
+        $("#social-media-manage-table").show();
+        $("#social-media-manage").closest("li").attr('class','active' );
+        $("#contact_manage_in_table").closest("li").attr("class","");
+        $("#email_manage_in_table").closest("li").attr('class','' );
+    });
+}
+
+$(document).ready(function () {
+   HideButtons();
+   Back();
+   hideTable();
+   TableManageContactsControl();
+});
+</script>

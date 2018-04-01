@@ -1,0 +1,3 @@
+class BurgerType < ApplicationRecord
+
+end

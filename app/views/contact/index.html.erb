@@ -1,0 +1,21 @@
+<body style="background-image: url(<%= @background_image.avatar.url %>)" class="bg-image">
+  <span class="panel-contacts">
+    <h1 class="text-white text-center"> Contacto </h1>
+    <% @contacts.each do |contact| %>
+    <p></p>
+    <div class="text-center text-white"><h3><%= contact.name %></h3></div>
+    <div class="text-center text-white"><h3><%= contact.phone %></h3></div>
+    <div class="text-center text-white"><h3>--------</h3></div>
+    <p></p>
+    <% end %>
+    <% @emails_contact.each do |email| %>
+    <div class="text-center text-white"><h4><%= email.email %></h4></div>
+    <div class="text-center text-white"><h3>--------</h3></div>
+    <% end %>
+    <div class="text-center">
+      <a href="<%= @facebook_link.link %>" target="_blank"><span class="fa fa-facebook-square" style="font-size:36px"></span></a>
+      <a href="<%= @instagram_link.link %>" target="_blank"><span class="fa fa-instagram" style="font-size:36px"></span></a>
+    </div>
+    <p></p>
+  </span>
+</body>
