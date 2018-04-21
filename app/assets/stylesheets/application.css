@@ -53,10 +53,28 @@ body, html {
     margin: 0;
 }
 
+#menu_view_table{
+    background-color: rgba(255,255,255,0.1);
+}
+
+#menu_view_table td{
+    color: white;
+    font-weight: bold;
+}
+#menu_view_table th{
+    color: white;
+}
+
+
 .bg-image{
     height: 100%;
 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.img_background{
+    background-repeat: no-repeat;
+    background-size: 100%;
 }

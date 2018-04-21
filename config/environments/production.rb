@@ -18,7 +18,17 @@ Rails.application.configure do
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.
   config.read_encrypted_secrets = true
-
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_credentials: {
+          bucket: ENV.fetch('S3_BUCKET_NAME'),
+          access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+          secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+          s3_region: ENV.fetch('AWS_REGION'),
+      },
+      url: ':s3_domain_url',
+      path: '/:class/:attachment/:id_partition/:style/:filename'
+  }
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?

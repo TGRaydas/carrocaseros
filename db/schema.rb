@@ -10,14 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319200133) do
+ActiveRecord::Schema.define(version: 20180407194442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "breads", force: :cascade do |t|
+    t.string "string"
+    t.string "name"
+    t.string "int"
+    t.string "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "burger_fill_types", force: :cascade do |t|
     t.bigint "burger_type_id"
     t.bigint "burger_fill_id"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["burger_fill_id"], name: "index_burger_fill_types_on_burger_fill_id"
@@ -84,6 +94,13 @@ ActiveRecord::Schema.define(version: 20180319200133) do
     t.boolean "facebook"
     t.boolean "instagram"
     t.boolean "twitter"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

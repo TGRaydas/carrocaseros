@@ -181,12 +181,12 @@
 </div>
 
 <!-- Menu -->
-<div id="menu-manage-table" class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3">
+<div hidden id="menu-manage-table" class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3">
   <div class="row">
     <ul class="nav nav-tabs">
       <li class="active"><a id="burgers-in-table">Hamburgesas</a></li>
       <li><a id="bread-fill-in-table">Pan y Relleno</a></li>
-      <li><a id="potato-in-table">Papas</a></li>
+      <li><a id="potato-in-table">Relacion Hamburgesas-Relleno-Precio</a></li>
     </ul>
   </div>
   <!-- Burger Types Table -->
@@ -208,7 +208,7 @@
         <% end %>
       </td>
     <% end %>
-    <%= form_for bt, method: "delete" do |bt| %>
+    <%= form_for bt, method: "delete" do %>
       <td>
         <%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
           <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
@@ -225,16 +225,144 @@
           <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
         <% end %>
       </td>
-      <td></td>
+      <td>      </td>
     </tr>
 
   <% end %>
   </table>
   <!-- Bread and Fills Table -->
-  <table id="menu-table-fills" class="table table-bordered">
+<div hidden id="menu-table-fills">
+  <table id="fill_table_in_div" class="table table-bordered">
     <tr>
-      <th>Detalle</th>
-      <th></th>
+      <th>Relleno</th>
+      <th>Agregar</th>
+      <th>Eliminar</th>
+    </tr>
+    <% @all_fills.each do |fill| %>
+      <%= form_for fill, url: "/burger_fill_update", method: "patch" do |fill|%>
+        <tr>
+          <td hidden> <%= fill.text_field :id, class: "form-control" %> </td>
+          <td><%= fill.text_field :fill_detail, class: "form-control" %></td>
+          <td><%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+              <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+            <% end %>
+          </td>
+      <% end %>
+        <%= form_for fill, url: "/burger_fill_destroy", method: "delete" do |fill|%>
+        <td hidden><%= fill.text_field :id, class: "form-control" %></td>
+          <td>
+            <%= button_tag(type: "submit" ,class: "btn btn-danger btn-sm") do %>
+              <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+            <% end %>
+          </td>
+        <% end %>
+        </tr>
+      <% end %>
+    <%= form_for @new_fill, url: "/burger_fill_create", method: "create" do |fill|%>
+      <tr>
+        <td><%= fill.text_field :fill_detail, class: "form-control" %></td>
+
+        <td><%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+          <% end %>
+    <% end %>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+
+  </table>
+
+  <table id="fill_bread_in_div" class="table table-bordered">
+    <tr>
+      <th>Tipo de Pan</th>
+      <th>Agregar</th>
+      <th>Eliminar</th>
+    </tr>
+    <% @all_breads.each do |breads| %>
+    <tr>
+      <%= form_for breads, url: '/admin/update_bread', method: "update" do |bread| %>
+      <td hidden><%= bread.text_field :id %></td>
+      <td><%= bread.text_field :name, class: "form-control" %></td>
+      <td><%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        <% end %>
+      </td>
+      <% end %>
+      <%= form_for breads, url: '/admin/delete_bread', method: "delete" do |bread| %>
+        <td hidden><%= bread.text_field :id %></td>
+        <td><%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
+            <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <%= form_for @new_bread, url: '/admin/create_bread', method: "create" do |bread| %>
+      <tr>
+        <td><%= bread.text_field :name, class: "form-control"  %></td>
+        <td>
+          <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <td></td>
+      </tr>
+
+    <% end %>
+
+
+
+  </table>
+</div>
+  <table hidden id="menu-table-breads" class="table table-bordered">
+    <tr>
+      <th>Relleno</th>
+      <th>Hamburgesa</th>
+      <th>Precio</th>
+      <th>Agregar</th>
+      <th>Eliminar</th>
+    </tr>
+    <% @all_burger_fill_type.each do |bft| %>
+      <tr>
+        <%= form_for bft , url: "/admin/update_burger_fill_type", method: "update" do |fill| %>
+        <td hidden ><%= fill.text_field :id %></td>
+          <td><%= fill.select :burger_fill_id, options_for_select(@all_burger_type_data[@i]) %></td>
+          <td><%= fill.select :burger_type_id, options_for_select(@all_burger_fill_data[@i]) %></td>
+          <td><%= fill.text_field :price, class: "form-control" %></td>
+          <td>
+            <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+              <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+            <% end %>
+            <% @i += 1 %>
+          </td>
+        <% end %>
+        <%= form_for bft, url: "/admin/delete_burger_fill_type", method: "delete" do |fill| %>
+          <td hidden><%= fill.text_field :id, class: "form-control" %></td>
+          <td>
+            <%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
+              <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+            <% end %>
+          </td>
+        <% end %>
+   </tr>
+    <% end %>
+
+    <tr>
+    <% if @list_fills_combo_box.length > 0 and @list_burgers_combo_box > 0 %>
+      <%= form_for @new_burger_type_fill, url: "/admin/new_burger_fill_type" do |btf| %>
+        <td><%= btf.select :burger_fill_id, options_for_select(@list_fills_combo_box) %></td>
+        <td><%= btf.select :burger_type_id, options_for_select(@list_burgers_combo_box) %></td>
+        <td><%= btf.text_field :price, class: "form-control" %></td>
+        <td>
+          <%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <td></td>
+      <% end %>
+    <% end %>
     </tr>
   </table>
 
@@ -276,7 +404,8 @@ function HideButtons() {
         $("#home_edit_buttons").show();
     });
     $("#menu_edit").click(function () {
-
+        $("#menu-manage-table").show();
+        $("#home_edit_buttons").hide();
     });
     $("#galery_edit").click(function () {
         $("#start_buttons").hide();
@@ -333,10 +462,38 @@ function TableManageContactsControl() {
     });
 }
 
+function TableManageMenuControl() {
+    $("#bread-fill-in-table").click(function () {
+        $("#menu-table-burger").hide();
+        $("#menu-table-fills").show();
+        $("#menu-table-breads").hide();
+        $("#bread-fill-in-table").closest("li").attr('class', 'active');
+        $("#burgers-in-table").closest("li").attr("class", "");
+        $("#potato-in-table").closest("li").attr('class', '');
+    });
+    $("#burgers-in-table").click(function () {
+        $("#menu-table-burger").show();
+        $("#menu-table-fills").hide();
+        $("#menu-table-breads").hide();
+        $("#burgers-in-table").closest("li").attr('class', 'active');
+        $("#bread-fill-in-table").closest("li").attr("class", "");
+        $("#potato-in-table").closest("li").attr('class', '');
+    });
+    $("#potato-in-table").click(function () {
+        $("#menu-table-burger").hide();
+        $("#menu-table-fills").hide();
+        $("#menu-table-breads").show();
+        $("#potato-in-table").closest("li").attr('class', 'active');
+        $("#burgers-in-table").closest("li").attr("class", "");
+        $("#bread-fill-in-table").closest("li").attr('class', '');
+    });
+}
+
 $(document).ready(function () {
    HideButtons();
    Back();
    hideTable();
    TableManageContactsControl();
+   TableManageMenuControl();
 });
 </script>

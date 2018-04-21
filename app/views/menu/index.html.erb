@@ -1,0 +1,30 @@
+<% if @background_image %>
+  <body class="img_background" background="<%= @background_image.avatar.url %>" >
+<% else %>
+  <body>
+<% end %>
+<div style="width: 60%;margin-left: 300px;margin-top: 70px;">
+  <table id="menu_view_table" class="table">
+    <tr>
+      <th style="width: 50%;">Detalle</th>
+      <th>Hamburgesa(60 g)</th>
+      <th>Churrasco</th>
+    </tr>
+    <% @all_fills.each_with_index do |fill, index| %>
+    <tr>
+      <td><%= index + 1 %>- <%= fill[0] %></td>
+      <td>
+      <% fill[1].each_with_index do |type, index| %>
+        <% if index ==  fill[1].size - 1 %>
+          <%= type[0][:type] %>: <%= type[0][:price] %>
+        <% else %>
+            <%= type[0][:type] %>: <%= type[0][:price] %> |
+        <% end %>
+      <% end %>
+      </td>
+      <td></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+</body>
