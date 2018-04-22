@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.where(email: params[:user][:email], password: params[:user][:password]).first
     if user != nil
       session[:current_session_id] = user.id
-      redirect_to admin_path
+      redirect_to '/admin'
     else
       redirect_to '/login'
     end

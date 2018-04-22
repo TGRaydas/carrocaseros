@@ -13,16 +13,24 @@
     <% @all_fills.each_with_index do |fill, index| %>
     <tr>
       <td><%= index + 1 %>- <%= fill[0] %></td>
-      <td>
+      <td class="burger_td">
       <% fill[1].each_with_index do |type, index| %>
-        <% if index ==  fill[1].size - 1 %>
-          <%= type[0][:type] %>: <%= type[0][:price] %>
-        <% else %>
-            <%= type[0][:type] %>: <%= type[0][:price] %> |
+        <% if type[0][:type] != "Churrasco" %>
+          <% if index ==  fill[1].size - 2 %>
+            <%= type[0][:type] %>: <%= type[0][:price] %>
+          <% else %>
+              <%= type[0][:type] %>: <%= type[0][:price] %> |
+          <% end %>
         <% end %>
       <% end %>
       </td>
-      <td></td>
+      <td class="burger_td">
+        <% fill[1].each_with_index do |type, index| %>
+          <% if type[0][:type] == "Churrasco" %>
+            $<%= type[0][:price] %>
+          <% end %>
+        <% end %>
+      </td>
     </tr>
     <% end %>
   </table>

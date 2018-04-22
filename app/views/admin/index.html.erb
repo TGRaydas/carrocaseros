@@ -350,7 +350,7 @@
     <% end %>
 
     <tr>
-    <% if @list_fills_combo_box.length > 0 and @list_burgers_combo_box > 0 %>
+    <% if @list_fills_combo_box.length > 0 and @list_burgers_combo_box.length > 0 %>
       <%= form_for @new_burger_type_fill, url: "/admin/new_burger_fill_type" do |btf| %>
         <td><%= btf.select :burger_fill_id, options_for_select(@list_fills_combo_box) %></td>
         <td><%= btf.select :burger_type_id, options_for_select(@list_burgers_combo_box) %></td>

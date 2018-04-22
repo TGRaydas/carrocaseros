@@ -54,7 +54,7 @@ body, html {
 }
 
 #menu_view_table{
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(0,0,0,0.7);
 }
 
 #menu_view_table td{
@@ -63,6 +63,11 @@ body, html {
 }
 #menu_view_table th{
     color: white;
+    text-align: center;
+}
+.burger_td{
+    color: white;
+    text-align: center;
 }
 
 
@@ -78,3 +83,6 @@ body, html {
     background-repeat: no-repeat;
     background-size: 100%;
 }
+
+
+
