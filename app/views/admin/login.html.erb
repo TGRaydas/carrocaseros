@@ -1,7 +1,11 @@
 <body>
 <div></div>
-<%= form_for @the_user do |user| %>
+<%= form_for @the_user, url: '/session', method: 'create' do |user| %>
+<p> Email </p>
 <%= user.text_field :email,  class: "form-control" %>
+<p> Password </p>
 <%= user.text_field :password,  class: "form-control" %>
-<% end %>
+  <%= button_tag(type: "submit", class: "btn btn-primary btn-sm") do %>
+    <i class="glyphicon glyphicon-ok"></i>
+    <% end %><% end %>
 </body>

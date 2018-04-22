@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :is_logged?
   def index
     @logo = Photo.where(logo: true).first
     @photos = Photo.all
@@ -93,6 +94,14 @@ class AdminController < ApplicationController
   end
   def burger_fill_types_params
     params.require(:burger_fill_type).permit(:burger_fill_id, :burger_type_id, :price)
+  end
+
+  def is_logged?
+    id = session[:current_session_id]
+    if id == nil and params[:action] != "login"
+      redirect_to '/login'
+      return false
+    end
   end
 
 end
