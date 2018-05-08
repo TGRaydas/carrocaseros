@@ -1,6 +1,5 @@
 
-<body style="background-image: url(<%= @background_image.avatar.url %>)" class="bg-image">
-<div style="height: 100%" class="panel-menu-messege text-white text-center col-md-offset-2">
+<div id="main_panel" style="height: 100%" class="panel-menu-messege text-white text-center col-md-offset-2 animated fadeIpassword">
 <p></p>
 <img src="<%= @logo.avatar.url %>">
   <h2> Bienvenido </h2>
@@ -10,4 +9,16 @@
     <a href="<%= @instagram_link.link %>" target="_blank"><span class="fa fa-instagram" style="font-size:36px"></span></a>
 </div>
 </div>
-</body>
+
+
+<script>
+    function isMobile() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            $("#main_panel").css("margin-left", "30%");
+            $("#main_panel").width(350);
+        }
+    }
+    $(document).ready(function () {
+       isMobile();
+    });
+</script>

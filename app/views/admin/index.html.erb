@@ -1,8 +1,3 @@
-<% if @background_image %>
-<body class="img_background" background="<%= @background_image.avatar.url %>" >
-<% else %>
-<body>
-<% end %>
 <span id="start_buttons" class="col-md-offset-4">
 <button id="home_edit" class="btn"> Editar Home</button>
 <button id="menu_edit" class="btn"> Editar Menu</button>
@@ -396,7 +391,7 @@
   </div>
 </div>
 <% end %>
-</body>
+
 <script>
 function HideButtons() {
     $("#home_edit").click(function () {

@@ -16,6 +16,7 @@
 
 .panel-menu-messege {
     background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
     width: 25%;
 }
 
@@ -23,6 +24,7 @@
     background: rgba(0, 0, 0, 0.6);
     display: block;
     margin: auto;
+    border-radius: 10px;
     width: 35%;
 }
 .text-white {
@@ -37,6 +39,9 @@
     width: 35%;
 }
 .galery_center{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -55,6 +60,8 @@ body, html {
 
 #menu_view_table{
     background-color: rgba(0,0,0,0.7);
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
 }
 
 #menu_view_table td{
@@ -80,8 +87,9 @@ body, html {
 }
 
 .img_background{
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 

@@ -1,14 +1,14 @@
 
 <body style="background: #2E2F30">
-  <div class="galery_center" style="background: black">
+  <div class="galery_center animated fadeIn" style="background: black">
     <div class="text-center">
       <button id="back_button_gallery"><i class="glyphicon glyphicon-chevron-left"></i></button>
     <% @galery_images.each do |image| %>
       <% if @galery_images_counter == 0 %>
-      <img id="image_<%= @galery_images_counter %>" src="<%= image.avatar.url(:galery) %>">
+      <img class="animated fadeIn" id="image_<%= @galery_images_counter %>" src="<%= image.avatar.url(:galery) %>">
       <% @galery_images_counter += 1 %>
       <% else %>
-      <img id="image_<%= @galery_images_counter %>" hidden src="<%= image.avatar.url(:galery) %>">
+      <img class="animated fadeIn" id="image_<%= @galery_images_counter %>" hidden src="<%= image.avatar.url(:galery) %>">
       <% @galery_images_counter += 1 %>
       <% end %>
     <% end %>
@@ -17,7 +17,6 @@
       <button id="next_button_gallery"><i class="glyphicon glyphicon-chevron-right"></i></button>
     </div>
   </div>
-<div id="footer" style="height: 200px;background: transparent;"></div>
 </body>
 
 <script>
@@ -66,7 +65,7 @@ function isMobile(){
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         $("[id^=image_]").each(function () {
            $(this).height(500);
-           $(this).width(400);
+           $(this).width(550);
         });
     }
 }
