@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  home: 1
+  menu: 1
+  contact: 1
+  galery: 1
+
+two:
+  home: 1
+  menu: 1
+  contact: 1
+  galery: 1

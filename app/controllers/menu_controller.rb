@@ -16,5 +16,16 @@ class MenuController < ApplicationController
       burger_type_price.push(all_types_prices)
       @all_fills.push(burger_type_price)
     end
+    @analitics = VisitsCounter.all.first()
+    if @analitics == nil
+      VisitsCounter.create(home: 0, menu: 0, contact: 0, galery: 0)
+      @analitics = VisitsCounter.all.first()
+    end
+    home_count = @analitics.home
+    menu_count = @analitics.menu + 1
+    galery_count = @analitics.galery
+    contact_count = @analitics.contact
+    @analitics.update(home: home_count, menu: menu_count, galery: galery_count, contact: contact_count)
+
   end
 end
