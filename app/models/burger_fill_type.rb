@@ -36,17 +36,19 @@ class BurgerFillType < ApplicationRecord
       row_fills = []
       combo_box_fills = []
       ids = []
-      combo_box_fills.push(burger_fill[:fill_detail])
-      combo_box_fills.push(burger_fill[:id])
-      row_fills.push(combo_box_fills)
-      burger_fill = BurgerFill.all
-      burger_fill.each do |bf|
-        unless ids.include?(bf[:id])
-          combo_box_fills = []
-          combo_box_fills.push(bf[:fill_detail])
-          combo_box_fills.push(bf[:id])
-          row_fills.push(combo_box_fills)
-          ids.push(bf[:id])
+      if !burger_fill.nil?
+        combo_box_fills.push(burger_fill[:fill_detail])
+        combo_box_fills.push(burger_fill[:id])
+        row_fills.push(combo_box_fills)
+        burger_fill = BurgerFill.all
+        burger_fill.each do |bf|
+          unless ids.include?(bf[:id])
+            combo_box_fills = []
+            combo_box_fills.push(bf[:fill_detail])
+            combo_box_fills.push(bf[:id])
+            row_fills.push(combo_box_fills)
+            ids.push(bf[:id])
+          end
         end
       end
       list.push(row_fills)
