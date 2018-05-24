@@ -63,12 +63,20 @@ body, html {
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
 }
+#menu_view_table tr{
+    height: 60px;
+    vertical-align: text-bottom;
+}
+
 
 #menu_view_table td{
+    padding-top: 17px;
     color: white;
     font-weight: bold;
+    font-size: 16px;
 }
 #menu_view_table th{
+    font-size: 18px;
     color: white;
     text-align: center;
 }
