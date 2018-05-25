@@ -1,4 +1,4 @@
-<div class="animated fadeIn" style="width: 60%;margin-left: 300px;margin-top: 70px;">
+<div class="animated fadeIn" style="width: 90%;margin-left: 5%;margin-top: 70px;background-color: rgba(0,0,0,0.7);">
   <table id="menu_view_table" class="table">
     <tr>
       <th style="width: 50%;">Detalle</th>
@@ -12,9 +12,9 @@
       <% fill[1].each_with_index do |type, index| %>
         <% if type[0][:type] != "Churrasco" %>
           <% if index ==  fill[1].size - 2 %>
-            <%= type[0][:type] %>: <%= type[0][:price] %>
+            <%= type[0][:type] %>: $<%= type[0][:price] %>
           <% else %>
-              <%= type[0][:type] %>: <%= type[0][:price] %> |
+              <%= type[0][:type] %>: $<%= type[0][:price] %> |
           <% end %>
         <% end %>
       <% end %>
@@ -29,4 +29,39 @@
     </tr>
     <% end %>
   </table>
+
+  <div id="potatos_row">
+    <h3>Acompañamientos</h3>
+    <% @all_potatos.each do |p| %>
+      <table class="table" style="width: 80%; margin-left: 8%;">
+        <tr>
+          <th></th>
+          <th>Unidades</th>
+          <th>Precio</th>
+        </tr>
+        <tr style="margin-left: 8%;">
+          <td><%= p.weight %></td>
+          <td><%= p.units %></td>
+          <td>$<%= p.price %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+
+  <div id="service_row">
+      <p style="width: 80%;margin-left: 10%; background-color: transparent" ><%= @menu_message.messege %></p>
+  </div>
 </div>
+<script>
+    function isMobile() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              $("th").css("font-size", "28px");
+              $("td").css("font-size", "24px");
+              $("div").css("font-size", "24px");
+
+        }
+    }
+    $(document).ready(function () {
+        isMobile();
+    });
+</script>

@@ -25,7 +25,13 @@ class AdminController < ApplicationController
     @all_burger_fill_type = BurgerFillType.all
     @list_fills_combo_box = BurgerFill.all_fills
     @list_burgers_combo_box = BurgerType.all_fills
+    @all_attach = Potato.all
+    @menu_messeges = MenuMessege.all.first()
+    if @menu_messeges.nil?
+      @menu_messeges = MenuMessege.create()
+    end
     @i = 0
+    @new_attach = Potato.new
     if @facebook == nil
       @facebook = SocialMedium.new
       @facebook.facebook = true
@@ -55,6 +61,10 @@ class AdminController < ApplicationController
       burger_fill_type = BurgerFillType.find(params[:burger_fill_type][:id])
       burger_fill_type.update(burger_fill_types_params)
     end
+    if params[:menu_messege]
+      var = MenuMessege.find(params[:menu_messege][:id])
+      var.update(messege:params[:menu_messege][:messege])
+    end
   end
 
   def create
@@ -66,6 +76,9 @@ class AdminController < ApplicationController
     end
     if params[:burger_fill_type]
       BurgerFillType.create(burger_fill_types_params)
+    end
+    if params[:potato]
+      Potato.create(weight:params[:potato][:weight], price:params[:potato][:price], units: params[:potato][:units])
     end
   end
 
@@ -81,6 +94,10 @@ class AdminController < ApplicationController
     if params[:burger_fill_type]
       burger_fill_type = BurgerFillType.find(params[:burger_fill_type][:id])
       burger_fill_type.destroy
+    end
+    if params[:potato]
+      var = Potato.find(params[:potato][:id])
+      var.destroy
     end
   end
   def login

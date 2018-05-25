@@ -4,6 +4,8 @@ class MenuController < ApplicationController
     @background_image = Photo.where(background: true).sample
     @logo = Photo.where(logo: true).first
     @all_fills = []
+    @all_potatos = Potato.all
+    @menu_message = MenuMessege.all.first()
     all_fills.each do |fill|
       burger_type_price = [fill.fill_detail]
       bft = BurgerFillType.where(burger_fill_id: fill.id)

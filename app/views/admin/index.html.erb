@@ -176,12 +176,13 @@
 </div>
 
 <!-- Menu -->
-<div hidden id="menu-manage-table" class="p-3 mb-2 bg-warning col-md-6 col-md-offset-3">
+<div hidden id="menu-manage-table" class="p-3 mb-2 bg-warning col-md-8 col-md-offset-2">
   <div class="row">
     <ul class="nav nav-tabs">
       <li class="active"><a id="burgers-in-table">Hamburgesas</a></li>
       <li><a id="bread-fill-in-table">Pan y Relleno</a></li>
       <li><a id="potato-in-table">Relacion Hamburgesas-Relleno-Precio</a></li>
+      <li><a id="attach-in-table">Acompañamientos</a></li>
     </ul>
   </div>
   <!-- Burger Types Table -->
@@ -360,7 +361,57 @@
     <% end %>
     </tr>
   </table>
+  <div hidden id = "menu-table-attach">
+  <table class="table table-bordered">
+    <tr>
+      <th>Nombre</th>
+      <th>Unidades</th>
+      <th>Precio</th>
+      <th>Agregar</th>
 
+      <th>Eliminar</th>
+    </tr>
+    <% @all_attach.each do |a| %>
+      <tr>
+        <td><%= a.weight %></td>
+        <td><%= a.units %></td>
+        <td><%= a.price %></td>
+        <%= form_for a, url:"/delete_attach", method:"delete" do |a| %>
+        <td hidden><%= a.text_field :id, class: "form-control" %></td>
+        <td>
+          <%= button_tag(type: "submit", class: "btn btn-danger btn-sm") do %>
+            <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <% end %>
+        <td></td>
+      </tr>
+    <% end %>
+    <%= form_for @new_attach , url: "/create_potato" do |at| %>
+      <td><%= at.text_field :weight, class: "form-control" %></td>
+      <td><%= at.text_field :units, class: "form-control" %></td>
+      <td><%= at.text_field :price, class: "form-control" %></td>
+      <td><%= button_tag(type: "submit", class: "btn btn-success btn-sm") do %>
+          <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        <% end %></td>
+    <% end %>
+  </table>
+    <table class="table table-bordered">
+      <tr>
+        <th>Mensaje</th>
+        <th>Editar</th>
+      </tr>
+      <%= form_for @menu_messeges , url: "/update_menu_messege", method: "patch" do |at| %>
+        <td hidden><%= at.hidden_field :id %></td>
+        <td><%= at.text_area :messege, class: "form-control" %></td>
+        <td>
+          <%= button_tag(type: "submit", class: "btn btn-success btn-sm", title: "update") do %>
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+          <% end %>
+        </td>
+      <% end %>
+    </table>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -416,6 +467,8 @@ function Back() {
         $("#home_edit_buttons").hide();
         $("#start_buttons").show();
         $("#photo-manage-table").hide();
+        $("#menu-manage-table").hide();
+
     });
 
 }
@@ -479,6 +532,16 @@ function TableManageMenuControl() {
         $("#menu-table-fills").hide();
         $("#menu-table-breads").show();
         $("#potato-in-table").closest("li").attr('class', 'active');
+        $("#burgers-in-table").closest("li").attr("class", "");
+        $("#bread-fill-in-table").closest("li").attr('class', '');
+    });
+    $("#attach-in-table").click(function () {
+        $("#menu-table-burger").hide();
+        $("#menu-table-fills").hide();
+        $("#menu-table-breads").hide();
+        $("#menu-table-attach").show();
+        $("#attach-in-tablee").closest("li").attr('class', 'active');
+        $("#potato-in-table").closest("li").attr('class', '');
         $("#burgers-in-table").closest("li").attr("class", "");
         $("#bread-fill-in-table").closest("li").attr('class', '');
     });

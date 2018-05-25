@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post '/admin/update_burger_fill_type', to: 'admin#update'
   delete '/admin/delete_burger_fill_type', to: 'admin#destroy'
   post '/session', to: 'sessions#create'
+  post '/create_potato', to: 'admin#create'
+  delete '/delete_attach', to: 'admin#destroy'
+  patch '/update_menu_messege', to: 'admin#update'
   resources :home
   resources :admin
   resources :photos

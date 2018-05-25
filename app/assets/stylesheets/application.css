@@ -67,6 +67,21 @@ body, html {
     height: 60px;
     vertical-align: text-bottom;
 }
+#service_row {
+    display: block;
+    padding: 20px 20px 20px 0px;
+    color: white;
+    width: 100%;
+    font-size: 16px;
+    background-color: rgba(0,0,0,0.7);
+}
+
+#potatos_row{
+    color: white;
+    padding: 20px 20px 20px 20px;
+    background-color: rgba(0,0,0,0.7);
+    width: 100%;
+}
 
 
 #menu_view_table td{
