@@ -25,6 +25,7 @@
     <th> Logo </th>
     <th> Galería </th>
     <th> Fondo de Pantalla </th>
+    <th> Home </th>
     <th> Guardar </th>
     <th> Eliminar </th>
   </tr>
@@ -35,6 +36,7 @@
       <td><%= pic.check_box :logo %> </td>
       <td><%= pic.check_box :galery %></td>
       <td><%= pic.check_box :background %></td>
+      <td><%= pic.check_box :home %> </td>
       <td>
         <%= button_tag(type: "submit", class: "btn btn-primary btn-sm") do %>
           <i class="glyphicon glyphicon-ok"></i>

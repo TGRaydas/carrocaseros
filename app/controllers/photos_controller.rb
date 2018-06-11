@@ -18,6 +18,6 @@ class PhotosController < ApplicationController
 # Be sure to update your create() and update() controller methods.
 
   def photo_params
-    params.require(:photo).permit(:logo, :galery, :background, :avatar)
+    params.require(:photo).permit(:logo, :galery, :background, :home, :avatar)
   end
 end
