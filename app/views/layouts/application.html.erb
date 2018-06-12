@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <nav class="navbar navbar-inverse">
+    <nav id="the_nav_bar" class="navbar navbar-inverse">
       <div class="navbar-header">
         <% if @logo %>
         <img src="<%= @logo.avatar.url(:thumb) %>" height="40">
@@ -20,29 +20,14 @@
       </div>
       <div class="center">
         <ul class="nav navbar-nav">
-          <% if params[:controller] == "home" %>
-            <li class="active"><a href="/home" class="navbar-brand">Inicio</a></li>
-          <% else %>
-            <li class=""><a href="/home" class="navbar-brand">Inicio</a></li>
-          <% end %>
-          <% if params[:controller] == "menu" %>
-            <li class="active"><a href="/menu" class="navbar-brand">Menú</a></li>
-          <% else %>
-            <li><a href="/menu" class="navbar-brand">Menú</a></li>
-          <% end %>
-          <% if params[:controller] == "galery" %>
-            <li class="active"><a href="/galery" class="navbar-brand">Galería</a></li>
-          <% else %>
-            <li><a href="/galery" class="navbar-brand">Galería</a></li>
-          <% end %>
-          <% if params[:controller] == "contact" %>
-            <li class="active"><a href="/contact" class="navbar-brand">Contacto</a></li>
-          <% else %>
-            <li class=""><a href="/contact" class="navbar-brand">Contacto</a></li>
-          <% end %>
+
+            <li class="<%= "active" if params[:controller] == "home" %>"><a id="inicio" href="/home" class="navbar-brand">Inicio</a></li>
+            <li class="<%= "active" if params[:controller] == "menu" %>"><a href="/menu" class="navbar-brand">Menú</a></li>
+            <li class="<%= "active" if params[:controller] == "galery" %>">"><a href="/galery" class="navbar-brand">Galería</a></li>
+            <li class="<%= "active" if params[:controller] == "contact" %>">"><a href="/contact" class="navbar-brand">Contacto</a></li>
         </ul>
       </div>
-      <div class="nav navbar-right">
+      <div hidden class="nav navbar-right">
         <ul class="nav navbar-nav">
           <li class="">
             <a class="btn-lg" data-toggle="tooltip" title="Shopping">
@@ -91,5 +76,23 @@
             return this;
         },
     });
+
+    function NavisMobile(){
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $("#the_nav_bar").each(function () {
+                $(this).height(100);
+            });
+            $("#the_nav_bar a").each(function () {
+                $(this).css("font-size", "50px");
+                $(this).css("margin-top", "20px");
+
+            });
+            $("#the_nav_bar img").css("height", "80px");
+            $("#the_nav_bar ul").css("width", "800px");
+            $("#the_nav_bar ul").css("margin-left", "-170px");
+        }
+    }
+    NavisMobile();
+
 
 </script>

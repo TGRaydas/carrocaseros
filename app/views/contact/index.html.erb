@@ -9,7 +9,7 @@
     <p></p>
     <% end %>
     <% @emails_contact.each do |email| %>
-    <div class="text-center text-white"><h4><%= email.email %></h4></div>
+    <div class="text-center text-white"><h3><%= email.email %></h3></div>
     <div class="text-center text-white"><h3>--------</h3></div>
     <% end %>
     <div class="text-center">
@@ -22,8 +22,18 @@
 function isMobile(){
   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       $("#panel-contacts").each(function () {
-          $(this).height(500);
+          $(this).height(650);
           $(this).width(850);
+      });
+      $("#panel-contacts h1").css("font-size", "70px");
+      $("#panel-contacts h3").each(function () {
+          $(this).css("font-size", "50px");
+      });
+      $("#panel-contacts h4").each(function () {
+          $(this).css("font-size", "35px");
+      });
+      $("#panel-contacts span").each(function () {
+          $(this).css("font-size", "115px");
       });
   }
 }
