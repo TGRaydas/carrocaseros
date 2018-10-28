@@ -23,7 +23,7 @@ class ShopController < ApplicationController
     @background_image = Photo.where(background: true).sample
     @logo = Photo.where(logo: true).first
     @data = []
-    @total = 25000
+    @total = 45000
     if cookies["shop"] != nil
       @data = cookies["shop"].split(";")
     end

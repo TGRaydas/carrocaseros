@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 20180611235005) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "home"
   end
 
   create_table "visits_counters", force: :cascade do |t|

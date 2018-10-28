@@ -6,6 +6,7 @@
       <th style="width: 50%;">Detalle</th>
       <th width="30%">Hamburgesa(60 g)</th>
       <th>Churrasco</th>
+      <th>Mechada</th>
       <th></th>
     </tr>
     <% @all_fills.each_with_index do |fill, index| %>
@@ -27,6 +28,13 @@
             <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
           <% end %>
           <% end %></td>
+      <td width="15%">
+        <% fill.burger_fill_types.each do |t| %>
+          <% if BurgerType.find(t.burger_type_id).name == "Mechada" %>
+            <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
+          <% end %>
+        <% end %>
+      </td>
       <td><button style="margin-top: -5px;" id="add-burger" title="Agregar al carro" class="btn btn-success add-burger"><i class="glyphicon glyphicon-plus"></i> Agregar al carro</button></td>
     </tr>
     <% end %>
@@ -101,8 +109,8 @@ function getFillsData() {
             document.getElementById('myModal').style.display = "none";
         });
     });
-}  
-  
+}
+
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
