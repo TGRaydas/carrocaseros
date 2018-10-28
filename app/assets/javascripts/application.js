@@ -14,3 +14,19 @@
 
 //= require turbolinks
 //= require_tree .
+var yellowColor = "#ec971f";
+var redColor = "#c9302c";
+var blueColor = "#337ab7";
+var greenColor = "#5bb75b";
+
+function alert(messege, color, delay=2000) {
+    $(".alert div").remove();
+    $(".alert").append("<div style='font-weight: bold;float: right;margin-right:70%;'>" + messege + "</div>");
+    $(".alert").css("background-color", color).fadeIn(200);
+    setTimeout(function () {$(".alert").fadeOut(200);}, delay);
+}
+
+String.prototype.price = function () {
+    var num = parseInt(this);
+    return num.toLocaleString(["ban","id"]).toString();
+};

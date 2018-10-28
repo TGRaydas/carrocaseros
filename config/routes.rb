@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   post '/create_potato', to: 'admin#create'
   delete '/delete_attach', to: 'admin#destroy'
   patch '/update_menu_messege', to: 'admin#update'
+  get '/fills_relations', to: 'shop#fills_api'
+  post '/add_shop', to: 'shop#add'
+  post '/update_shop', to: 'shop#update'
+  post '/delete_shop', to: 'shop#delete'
+  get '/shop', to: 'shop#index'
   resources :home
   resources :admin
   resources :photos

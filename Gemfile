@@ -19,6 +19,8 @@ gem 'aws-sdk-s3'
 # gem 'therubyracer', platforms: :ruby
 gem 'paperclip'
 gem 'pg'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 gem 'browser', require: "browser/browser"
 
@@ -36,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'bootstrap', '~> 4.1.3'
 
 group :development, :test do
   

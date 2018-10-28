@@ -4,8 +4,7 @@
     <%= render 'application/favicon' %>
     <title>Carrocaseros</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application.css' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,17 +19,16 @@
       </div>
       <div class="center">
         <ul class="nav navbar-nav">
-
             <li class="<%= "active" if params[:controller] == "home" %>"><a id="inicio" href="/home" class="navbar-brand">Inicio</a></li>
             <li class="<%= "active" if params[:controller] == "menu" %>"><a href="/menu" class="navbar-brand">Menú</a></li>
-            <li class="<%= "active" if params[:controller] == "galery" %>">"><a href="/galery" class="navbar-brand">Galería</a></li>
-            <li class="<%= "active" if params[:controller] == "contact" %>">"><a href="/contact" class="navbar-brand">Contacto</a></li>
+            <li class="<%= "active" if params[:controller] == "galery" %>"><a href="/galery" class="navbar-brand">Galería</a></li>
+            <li class="<%= "active" if params[:controller] == "contact" %>"><a href="/contact" class="navbar-brand">Contacto</a></li>
         </ul>
       </div>
-      <div hidden class="nav navbar-right">
+      <div class="nav navbar-right">
         <ul class="nav navbar-nav">
           <li class="">
-            <a class="btn-lg" data-toggle="tooltip" title="Shopping">
+            <a href="/shop" class="btn-lg" data-toggle="tooltip" title="Shopping">
               <i class="glyphicon glyphicon-shopping-cart"></i>
             </a>
           </li>
@@ -43,6 +41,7 @@
   <body class="img_background" style="background:url(<%= @background_image.avatar.url %>) center center no-repeat; background-size: cover;">
   <% else %>
     <body>
+
   <% end %>
     <%= yield %>
   <div style="width: 100%; height: 50px"></div>

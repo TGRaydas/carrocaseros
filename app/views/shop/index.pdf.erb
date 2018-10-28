@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <%= wicked_pdf_stylesheet_link_tag 'shop.css' %>
+  <%= wicked_pdf_javascript_include_tag "number_pages" %>
+</head>
+<body onload='number_pages'>
+<div id="header" style="width: 100%;padding-bottom: 2%;">
+  <div style="background-color: black;margin: 0 auto;width: 200px;">
+    <%= wicked_pdf_image_tag Photo.where(logo: true).first.avatar.url(:thumb) %>
+  </div>
+</div>
+<div style="width: 100%;margin: 0 auto;">
+  <table class="table" style="margin-top: 20px;">
+    <thead>
+    <tr>
+      <th style="text-align: center">Detalle</th>
+      <th style="text-align: center">Carne</th>
+      <th style="text-align: center">Precio Unitario</th>
+      <th style="width: 10%;">Cantidad</th>
+      <th style="text-align: center">Precio Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @data.each do |f| %>
+      <% fill = f.split(",") %>
+      <tr>
+        <td style="text-align: center"><%= BurgerFill.find(fill[0]).fill_detail %></td>
+        <td style="text-align: center"><%= BurgerType.find(fill[1]).name%></td>
+        <td id="b-price" style="text-align: center"><%= BurgerFillType.where(burger_fill: fill[0], burger_type: fill[1]).first.price %></td>
+        <td style="text-align: center"><%= fill[2] %></td>
+        <td id="price" style="text-align: center"><%= BurgerFillType.where(burger_fill: fill[0], burger_type: fill[1]).first.price * Integer(fill[2]) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div style="margin-bottom: 10px;">
+    <p><%= MenuMessege.all.first().messege %></p>
+  </div>
+  <div >
+    <label>Precio Total</label>
+    <p id="total-price">$<%= @total %></p>
+  </div>
+
+</div>
+</body>
+</html>

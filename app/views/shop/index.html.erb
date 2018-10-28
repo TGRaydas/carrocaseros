@@ -1,0 +1,75 @@
+<div style="width: 65%;margin: 0 auto;">
+  <table id="menu_view_table" style="color: white;" class="table">
+    <thead>
+      <tr>
+        <th>Detalle</th>
+        <th>Carne</th>
+        <th>Precio Unitario</th>
+        <th style="width: 10%;">Cantidad</th>
+        <th>Precio Total</th>
+        <th style="width:28%">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @data.each do |f| %>
+      <% fill = f.split(",") %>
+        <tr>
+          <td><%= BurgerFill.find(fill[0]).fill_detail %></td>
+          <td style="text-align: center"><%= BurgerType.find(fill[1]).name%></td>
+          <td id="b-price" style="text-align: center"><%= BurgerFillType.where(burger_fill: fill[0], burger_type: fill[1]).first.price %></td>
+          <td style="text-align: center"><input class="form-control" value="<%= fill[2] %>"></td>
+          <td id="price" style="text-align: center"><%= BurgerFillType.where(burger_fill: fill[0], burger_type: fill[1]).first.price * Integer(fill[2]) %></td>
+          <td>
+            <button id="update" data="<%= f %>" class="btn btn-primary"><i class="glyphicon glyphicon-upload"></i> Actualizar</button>
+            <button id="delete" data="<%= f %>" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div style="margin-bottom: 10px;border-radius: 10px;" id="service_row">
+    <p style="width: 80%;margin-left: 10%; background-color: transparent" ><%= MenuMessege.all.first().messege %></p>
+  </div>
+  <div style="margin-bottom: 10px;padding: 10px;color: white;border-radius: 10px;background-color: rgba(0,0,0,0.7);width: 13%;">
+    <label>Precio Total</label>
+    <p id="total-price"></p>
+  </div>
+  <a href="/shop.pdf" download class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Descargar Presupuesto</a>
+</div>
+<script>
+function calcPrice() {
+    var total = 25000;
+    $("tbody > tr").each(function () {
+        total += parseInt($(this).find("#price").text());
+    });
+    $("#total-price").text( "$" + total.toString().price());
+}
+function updates(){
+    $("[id^=update]").click(function () {
+        var tr = $(this).closest("tr");
+        var cantidad = tr.find("input").val();
+        var price = tr.find("#b-price").text();
+        var data = $(this).attr("data").split(",");
+        var up = data[0] + "," + data[1] + "," + cantidad;
+        $.post("/update_shop", {data:up}, function (data) {
+            alert("Se actualizó correctamente su pedido", greenColor);
+            tr.find("#price").text(price * cantidad);
+            calcPrice();
+        });
+    });
+}
+function deleteD(){
+    $("[id^=delete]").click(function () {
+        var tr = $(this).closest("tr");
+        var data = $(this).attr("data");
+        $.post("/delete_shop", {data:data}, function (data) {
+            alert("Se eliminó correctamente su pedido", greenColor);
+            tr.remove();
+            calcPrice();
+        });
+    });
+}
+deleteD();
+updates();
+calcPrice();
+</script>

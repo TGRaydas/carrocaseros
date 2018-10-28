@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
@@ -115,5 +114,91 @@ body, html {
     background-size: 100% 100%;
 }
 
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 60%;
+    margin-left: 20%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
 
+.flex-item {
+    padding: 5px;
+    width: 300px;
+    height: 250px;
+    margin-top: 10px;
+    border: 2px solid red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-image{
+    background-position: center;
+    background-size: 100% 100%;
+    width: 80%;
+    height: 70%;
+    margin-left: 9%;
+    margin-top: 10px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin-left: 30%; /* 15% from the top and centered */
+    margin-top: 10%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.alert {
+    position: fixed;
+    width: 90%;
+    margin-left: 4.5%;
+    padding: 20px;
+    display: none;
+    background-color: #f44336; /* Red */
+    color: white;
+    z-index: 2;
+    margin-top: 0px;
+}
+
+body{
+    overflow-x: hidden;
+}

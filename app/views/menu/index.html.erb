@@ -1,31 +1,33 @@
+
 <div class="animated fadeIn" style="width: 90%;margin-left: 5%;margin-top: 70px;background-color: rgba(0,0,0,0.7);">
+
   <table id="menu_view_table" class="table">
     <tr>
       <th style="width: 50%;">Detalle</th>
-      <th>Hamburgesa(60 g)</th>
+      <th width="30%">Hamburgesa(60 g)</th>
       <th>Churrasco</th>
+      <th></th>
     </tr>
     <% @all_fills.each_with_index do |fill, index| %>
     <tr>
-      <td><%= index + 1 %>- <%= fill[0] %></td>
+      <td id="fill" data="<%= fill.id %>"><%= index + 1 %>. <%= fill.fill_detail %></td>
       <td class="burger_td">
-      <% fill[1].each_with_index do |type, index| %>
-        <% if type[0][:type] != "Churrasco" %>
-          <% if index ==  fill[1].size - 2 %>
-            <%= type[0][:type] %>: $<%= type[0][:price] %>
-          <% else %>
-              <%= type[0][:type] %>: $<%= type[0][:price] %> |
+      <% fill.burger_fill_types.each do |t| %>
+          <% if BurgerType.find(t.burger_type_id).name != "Churrasco" %>
+            <% if fill.burger_fill_types.length - 1 == index %>
+              <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
+            <% else %>
+              <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %> |
           <% end %>
         <% end %>
       <% end %>
       </td>
-      <td class="burger_td">
-        <% fill[1].each_with_index do |type, index| %>
-          <% if type[0][:type] == "Churrasco" %>
-            $<%= type[0][:price] %>
+      <td width="15%"><% fill.burger_fill_types.each do |t| %>
+          <% if BurgerType.find(t.burger_type_id).name == "Churrasco" %>
+            <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
           <% end %>
-        <% end %>
-      </td>
+          <% end %></td>
+      <td><button style="margin-top: -5px;" id="add-burger" title="Agregar al carro" class="btn btn-success add-burger"><i class="glyphicon glyphicon-plus"></i> Agregar al carro</button></td>
     </tr>
     <% end %>
   </table>
@@ -52,16 +54,90 @@
       <p style="width: 80%;margin-left: 10%; background-color: transparent" ><%= @menu_message.messege %></p>
   </div>
 </div>
-<script>
-    function isMobile() {
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-              $("th").css("font-size", "30px");
-              $("td").css("font-size", "28px");
-              $("div").css("font-size", "28px");
+<div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <label data="" id="detail-name"></label><br/>
+    <label>Tipo de Hamburgesa</label>
+    <select class = "form-control" id="burgers"></select><br/>
+    <label>Cantidad</label><input class="form-control" id="cant" type="number" min="0"><br/>
+    <button id="send-burgers" class="btn btn-success">Agregar <i class="glyphicon glyphicon-plus"></i></button>
+  </div>
+
+</div>
+<script>
+
+function getFillsData() {
+
+    $(".add-burger").click(function () {
+        var row = $(this).closest("tr");
+        var name = row.find("#fill").text();
+        var id = row.find("#fill").attr("data");
+        $("#detail-name").text(name.split(".")[1]);
+        $("#detail-name").attr("data", id);
+        console.log(id);
+        $("#burgers option").remove();
+        $.get("/fills_relations?id=" + id + ";", function (data) {
+            for (var i = 0; i < data.length; i++){
+                $("#burgers").append("<option value='"+data[i][1]+"'>"+data[i][0]+" : "+data[i][2]+"</option>");
+            }
+        });
+    });
+    $("#send-burgers").click(function () {
+        var fill = $("#detail-name").attr("data");
+        var type = $("#burgers option:selected").val();
+        var cant = $("#cant").val();
+        console.log(cant)
+        if (cant == null || cant == ""){
+            alert("Debe seleccionar la cantidad! Intentelo denuevo", redColor);
+            document.getElementById('myModal').style.display = "none";
+            return;
+        }
+        var data= {fill:fill,type:type,cant:cant};
+        $.post("/add_shop", data, function () {
+            alert("Se agrego correctamente su pedido al carro", greenColor);
+            document.getElementById('myModal').style.display = "none";
+        });
+    });
+}  
+  
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = $(".add-burger");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.click(function () {
+            modal.style.display = "block";
+        });
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
-    $(document).ready(function () {
-        isMobile();
-    });
+
+function isMobile() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          $("th").css("font-size", "30px");
+          $("td").css("font-size", "28px");
+          $("div").css("font-size", "28px");
+
+    }
+}
+$(document).ready(function () {
+    isMobile();
+    getFillsData();
+});
 </script>
