@@ -14,7 +14,7 @@
       <td id="fill" data="<%= fill.id %>"><%= index + 1 %>. <%= fill.fill_detail %></td>
       <td class="burger_td">
       <% fill.burger_fill_types.each do |t| %>
-          <% if BurgerType.find(t.burger_type_id).name != "Churrasco" %>
+          <% if BurgerType.find(t.burger_type_id).name != "Churrasco" and  BurgerType.find(t.burger_type_id).name != "Mechada" %>
             <% if fill.burger_fill_types.length - 1 == index %>
               <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
             <% else %>
@@ -23,15 +23,15 @@
         <% end %>
       <% end %>
       </td>
-      <td width="15%"><% fill.burger_fill_types.each do |t| %>
+      <td style="text-align: center" width="15%"><% fill.burger_fill_types.each do |t| %>
           <% if BurgerType.find(t.burger_type_id).name == "Churrasco" %>
-            <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
+            <%= t.price %>
           <% end %>
           <% end %></td>
-      <td width="15%">
+      <td style="text-align: center"  width="15%">
         <% fill.burger_fill_types.each do |t| %>
           <% if BurgerType.find(t.burger_type_id).name == "Mechada" %>
-            <%= BurgerType.find(t.burger_type_id).name %> : <%= t.price %>
+            <%= t.price %>
           <% end %>
         <% end %>
       </td>
