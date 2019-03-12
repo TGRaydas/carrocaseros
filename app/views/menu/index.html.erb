@@ -4,10 +4,10 @@
   <table id="menu_view_table" class="table">
     <tr>
       <th style="width: 50%;">Detalle</th>
-      <th width="30%">Hamburgesa(60 g)</th>
+      <th width="30%">Hamburgesa(70 g)</th>
       <th>Churrasco</th>
       <th>Mechada</th>
-      <th></th>
+     <!-- <th style="visibility:hidden"></th> -->
     </tr>
     <% @all_fills.each_with_index do |fill, index| %>
     <tr>
@@ -35,7 +35,7 @@
           <% end %>
         <% end %>
       </td>
-      <td><button style="margin-top: -5px;" id="add-burger" title="Agregar al carro" class="btn btn-success add-burger"><i class="glyphicon glyphicon-plus"></i> Agregar al carro</button></td>
+      <!--<td style="visibility:hidden"><button style="margin-top: -5px;" id="add-burger" title="Agregar al carro" class="btn btn-success add-burger"><i class="glyphicon glyphicon-plus"></i> Agregar al carro</button></td> -->
     </tr>
     <% end %>
   </table>
